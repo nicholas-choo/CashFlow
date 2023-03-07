@@ -1,6 +1,5 @@
 # CashFlow
-<span align="justify">
-CashFlow is a budget tracking web application that helps users keep track of their income, expenses, and overall financial health. With CashFlow, users can easily create and manage their budget categories, set budget limits, and track their progress towards meeting their financial goals.
+<span align="justify">CashFlow is a budget tracking web application that helps users keep track of their income, expenses, and overall financial health. With CashFlow, users can easily create and manage their budget categories, set budget limits, and track their progress towards meeting their financial goals.
 
 The user-friendly dashboard provides a quick overview of the user's finances, including their income and expenses for the month, as well as a visual representation of their budget progress. Users can easily add income and expenses, categorize them, and set reminders for upcoming bills or expenses.
 
