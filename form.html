@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>CashFlow</title>
+    <link rel="icon" href="img/cashflow_icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- top navigation bar -->
+    <div class="topnav-cont">
+        <div class="cont topnav">
+            <div class="l-items">
+                <img src="img/cashflow_icon.png" class="logo to-home" onclick="location.replace('dashboard.html')">
+                <a class="name to-home" href="dashboard.html">CashFlow</a>
+            </div>
+            <div class="r-items">
+                <a href="dashboard.html">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="#login">Sign Out</a>
+            </div>
+        </div>
+    </div>
+    <!-- section 1 -->
+    <section class="section">
+        <form class="form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+    <script src="firebase_config.js"></script>
+    <script>
+        // Get a reference to the database service
+        var database = firebase.database();
+
+        // Add an event listener to the form submit button
+        document.querySelector('.form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Prevent the form from submitting
+
+            // Get the values from the form
+            var name = document.querySelector('#name').value;
+            var email = document.querySelector('#email').value;
+            var message = document.querySelector('#message').value;
+
+            if (name === '') {
+                alert("Name must not be empty!");
+                return;
+            }
+            if (email === '') {
+                alert("Email must not be empty!");
+                return;
+            }
+            if (message === '') {
+                alert("Message must not be empty!");
+                return;
+            }
+
+            // Write the data to Firebase Realtime Database
+            database.ref('messages').push({
+                name: name,
+                email: email,
+                message: message
+            }, function (error) {
+                if (error) {
+                    console.log('Data could not be saved.' + error);
+                } else {
+                    console.log('Data saved successfully.');
+                }
+            });
+
+            // Clear the form
+            document.querySelector('#name').value = '';
+            document.querySelector('#email').value = '';
+            document.querySelector('#message').value = '';
+        });
+    </script>
+</body>
+
+</html>

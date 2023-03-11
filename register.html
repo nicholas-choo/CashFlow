@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="icon" href="img/cashflow_icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- top navigation bar -->
+    <div class="topnav-cont">
+        <div class="cont topnav">
+            <div class="l-items">
+                <img src="img/cashflow_icon.png" class="logo to-home" onclick="location.replace('index.html')">
+                <a class="name to-home" href="index.html">CashFlow</a>
+            </div>
+            <div class="r-items">
+                <a href="index.html">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="login.html">Login</a>
+            </div>
+        </div>
+    </div>
+    <!-- section 1 -->
+    <section class="section form-center">
+        <form id="register-form" class="form">
+            <h1>Register</h1>
+            <p>Fill out this form.</p><br>
+            <input type="text" id="name" name="name" placeholder="Name" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="password2" name="password2" placeholder="Re-enter Password" required>
+            <button type="submit">Create Account</button>
+            <p>Already have an account?</p>
+            <a href="login.html">Login</a>
+        </form>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="firebase_config.js"></script>
+    <script>
+        // Get elements
+        const registerForm = document.querySelector('#register-form');
+
+        // Add register event listener
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = registerForm['name'].value;
+            const email = registerForm['email'].value;
+            const password = registerForm['password'].value;
+            const password2 = registerForm['password2'].value;
+            
+            if (password != password2) {
+                alert("Both password entered must be the same!");
+                return;
+            }
+
+            // Create user with Firebase Auth
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Update user display name with the provided name
+                    userCredential.user.updateProfile({
+                        displayName: name
+                    }).then(() => {
+                        // Redirect to dashboard or home page
+                        location.replace("dashboard.html");
+                    }).catch((error) => {
+                        // Display error message to user
+                        alert("Error: " + error);
+                    });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // Display error message to user
+                    alert("Error: " + errorMessage);
+                });
+        });
+    </script>
+</body>
+
+</html>

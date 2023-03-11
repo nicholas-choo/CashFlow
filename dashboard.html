@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>CashFlow</title>
+    <link rel="icon" href="img/cashflow_icon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- top navigation bar -->
+    <div class="topnav-cont">
+        <div class="cont topnav">
+            <div class="l-items">
+                <img src="img/cashflow_icon.png" class="logo to-home">
+                <a class="name to-home">CashFlow</a>
+            </div>
+            <div class="r-items">
+                <a class="active">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a onclick="showPopup()">Sign Out</a>
+            </div>
+        </div>
+    </div>
+    <div class="overlay">
+        <div class="popup">
+            <h1>Sign Out</h1>
+            <p>Are you sure you want to sign out?</p>
+            <button class="green" onclick="signOut()">Yes</button>
+            <button class="red" onclick="hidePopup()">No</button>
+        </div>
+    </div>
+    <!-- section 1 -->
+    <section class="section"></section>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="firebase_config.js"></script>
+    <script>
+		function showPopup() {
+			document.querySelector('.overlay').style.display = 'block';
+		}
+		
+		function hidePopup() {
+			document.querySelector('.overlay').style.display = 'none';
+		}
+
+        function signOut() {
+            firebase.auth().signOut()
+                .then(() => {
+                    // User has been logged out successfully
+                    // Redirect to the login page or home page
+                    location.replace("index.html");
+                })
+                .catch((error) => {
+                    // An error occurred while logging out the user
+                    alert("Error: " + error);
+                });
+        }
+    </script>
+</body>
+
+</html>
